@@ -1,0 +1,143 @@
+:root {
+  /* Colors from colors.ts */
+  --primary: #374CFF;
+  --primary-dark: #00109C;
+  --primary-light: #6372FF;
+  --primary-soft: #EEEDFF;
+  --black: #393B41;
+  --white: #FFFFFF;
+  --gray: #8F8F8F;
+
+  --danger: #FF0A0E;
+  --danger-dark: #980003;
+  --danger-light: #FF2D31;
+  --danger-pale: #FFE5E6;
+
+  --warning: #FFA908;
+  --warning-dark: #FF7008;
+  --warning-light: #FFCE08;
+  --warning-pale: #FFEEA8;
+
+  --success: #009900;
+  --success-light: #4DFF4D;
+  --success-pale: #DEFFDE;
+  --lime: #C1FB44;
+
+  --gray-100: #FAFCFF;
+  --gray-200: #F0F1F2;
+  --gray-300: #E6E6E6;
+  --gray-400: #8F8F8F;
+  --gray-500: #4C4C4C;
+  --gray-600: #393B41;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+
+  --background: #FAFCFF;
+  --background2: #E5E7EB;
+
+  /* Spacing from spacing.ts */
+  --spacing-none: 0;
+  --spacing-4xs: 2px;
+  --spacing-3xs: 4px;
+  --spacing-2xs: 6px;
+  --spacing-xs: 8px;
+  --spacing-s: 12px;
+  --spacing-m: 16px;
+  --spacing-l: 20px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 28px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 36px;
+  --spacing-5xl: 40px;
+  --spacing-6xl: 52px;
+  --spacing-7xl: 100px;
+
+  /* Typography sizes from typography.ts */
+  --font-size-xxs: 12px;
+  --font-size-xs: 13px;
+  --font-size-s: 15px;
+  --font-size-m: 17px;
+  --font-size-l: 20px;
+  --font-size-xl: 24px;
+  --font-size-h3: 24px;
+  --font-size-h2: 29px;
+  --font-size-h1: 35px;
+
+  /* Line heights */
+  --line-height-small: 16px;
+  --line-height-body: 27px;
+  --line-height-h3: 38px;
+  --line-height-h2: 46px;
+  --line-height-h1: 56px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-body);
+  color: var(--black);
+  background-color: var(--background);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Typography utilities */
+h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  font-weight: 700;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+input, textarea {
+  font-family: inherit;
+  font-size: var(--font-size-m);
+}
+
+/* Utility classes for spacing */
+.p-xs { padding: var(--spacing-xs); }
+.p-s { padding: var(--spacing-s); }
+.p-m { padding: var(--spacing-m); }
+.p-l { padding: var(--spacing-l); }
+.p-xl { padding: var(--spacing-xl); }
+
+.m-xs { margin: var(--spacing-xs); }
+.m-s { margin: var(--spacing-s); }
+.m-m { margin: var(--spacing-m); }
+.m-l { margin: var(--spacing-l); }
+.m-xl { margin: var(--spacing-xl); }
+
+/* Utility classes for colors */
+.text-primary { color: var(--primary); }
+.text-gray { color: var(--gray); }
+.bg-primary { background-color: var(--primary); }
+.bg-white { background-color: var(--white); }
