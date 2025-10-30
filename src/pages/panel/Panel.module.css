@@ -25,20 +25,82 @@
   font-weight: 700;
 }
 
-.logoutButton {
-  padding: var(--spacing-xs) var(--spacing-xl);
+.profileWrapper {
+  position: relative;
+}
+
+.profileButton {
+  padding: var(--spacing-3xs);
   background: var(--white);
   color: var(--primary);
   border: 2px solid var(--primary);
   border-radius: var(--spacing-xs);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
 }
 
-.logoutButton:hover {
-  background: var(--primary);
-  color: var(--white);
+.profileDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--white);
+  border-radius: var(--spacing-s);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  animation: dropdownSlide 0.2s ease;
+  border: 1px solid var(--gray-300);
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownHeader {
+  padding: var(--spacing-l);
+}
+
+.userEmailSmall {
+  color: var(--black);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: var(--gray-300);
+  margin: 0;
+}
+
+.dropdownLogoutButton {
+  width: 100%;
+  padding: var(--spacing-m) var(--spacing-l);
+  background: transparent;
+  color: var(--danger);
+  border: none;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+}
+
+.dropdownLogoutButton svg {
+  flex-shrink: 0;
 }
 
 .main {
@@ -90,11 +152,6 @@
   border-radius: var(--spacing-xs);
   font-size: var(--font-size-xs);
   font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.filterButton:hover {
-  border-color: var(--primary-light);
 }
 
 .filterButton.active {
@@ -131,11 +188,6 @@
 
 .table tbody tr {
   border-bottom: 1px solid var(--primary-soft);
-  transition: background-color 0.2s ease;
-}
-
-.table tbody tr:hover {
-  background: var(--primary-soft);
 }
 
 .table tbody tr:last-child {
@@ -151,6 +203,199 @@
 .titleCell {
   font-weight: 600;
   color: var(--primary-dark);
+}
+
+.approveButton {
+  padding: var(--spacing-2xs) var(--spacing-m);
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--spacing-3xs);
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.rejectButton {
+  padding: var(--spacing-2xs) var(--spacing-m);
+  background: var(--white);
+  color: var(--danger);
+  border: 2px solid var(--danger);
+  border-radius: var(--spacing-3xs);
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.expandButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  border-radius: var(--spacing-2xs);
+}
+
+.mainRow {
+  cursor: pointer;
+}
+
+.expandedRow {
+  background: var(--white);
+  border-bottom: none !important;
+}
+
+.expandedRow td {
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.jobCardsContainer {
+  padding: var(--spacing-xl);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.jobCardsHeader {
+  margin-bottom: var(--spacing-l);
+}
+
+.jobCardsHeader h3 {
+  color: var(--primary);
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  margin: 0;
+}
+
+.jobCards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+}
+
+.jobCard {
+  background: var(--white);
+  border-radius: var(--spacing-s);
+  border: 1px solid var(--gray-300);
+  overflow: hidden;
+}
+
+.jobCardHeader {
+  background: var(--primary-soft);
+  padding: var(--spacing-m);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.jobCardHeader h4 {
+  color: var(--primary);
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  margin: 0;
+}
+
+.jobCardPrice {
+  background: var(--primary);
+  color: var(--white);
+  padding: var(--spacing-2xs) var(--spacing-s);
+  border-radius: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.jobCardBody {
+  padding: var(--spacing-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+.jobCardActions {
+  display: flex;
+  gap: var(--spacing-s);
+  margin-top: var(--spacing-m);
+  padding-top: var(--spacing-m);
+  border-top: 1px solid var(--gray-300);
+  justify-content: flex-end;
+}
+
+.jobCardRow {
+  display: flex;
+  gap: var(--spacing-s);
+  font-size: var(--font-size-xs);
+  line-height: 1.6;
+}
+
+.jobCardLabel {
+  font-weight: 600;
+  color: var(--gray);
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.tenantName {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.shifts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.shift {
+  background: var(--primary-soft);
+  padding: var(--spacing-2xs) var(--spacing-s);
+  border-radius: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.requirements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2xs);
+}
+
+.requirement {
+  background: var(--warning-pale);
+  color: var(--warning-dark);
+  padding: var(--spacing-2xs) var(--spacing-s);
+  border-radius: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2xs);
+}
+
+.tag {
+  background: var(--success-pale);
+  color: var(--success);
+  padding: var(--spacing-2xs) var(--spacing-s);
+  border-radius: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
 }
 
 .statusBadge {
@@ -196,12 +441,6 @@
   padding: var(--spacing-xl);
   text-align: center;
   box-shadow: 0 2px 8px rgba(55, 76, 255, 0.04);
-  transition: transform 0.2s ease;
-}
-
-.statCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(55, 76, 255, 0.08);
 }
 
 .statValue {
@@ -244,5 +483,18 @@
 
   .stats {
     grid-template-columns: 1fr;
+  }
+
+  .jobCardsContainer {
+    padding: var(--spacing-m);
+  }
+
+  .jobCardRow {
+    flex-direction: column;
+    gap: var(--spacing-2xs);
+  }
+
+  .jobCardLabel {
+    min-width: auto;
   }
 }
