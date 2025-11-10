@@ -30,6 +30,16 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<Otp onLogin={handleLogin} />} />
         <Route
+          path="/otp"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/panel" replace />
+            ) : (
+              <Otp onLogin={handleLogin} />
+            )
+          }
+        />
+        <Route
           path="/panel"
           element={
             isAuthenticated ? <Panel onLogout={handleLogout} /> : <Navigate to="/login" replace />
