@@ -5,11 +5,7 @@ import 'react-international-phone/style.css'
 import styles from './Login.module.css'
 import { icons } from '../../constants/icon'
 
-interface LoginProps {
-  onLogin: () => void
-}
-
-function Login({ onLogin }: LoginProps) {
+function Login() {
   const navigate = useNavigate()
   const [phoneNumber, setPhoneNumber] = useState('')
   const [phoneError, setPhoneError] = useState('')

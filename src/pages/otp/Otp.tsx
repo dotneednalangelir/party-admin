@@ -71,6 +71,7 @@ function Otp({ onLogin }: OtpProps) {
     // TODO: Replace with real OTP verification
     // For now, accept any 4-digit code
     onLogin()
+    navigate('/panel')
   }
 
   const handleResendCode = () => {
