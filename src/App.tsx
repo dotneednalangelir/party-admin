@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Login from './pages/login/Login'
+import Otp from './pages/otp/Otp'
 import Panel from './pages/panel/Panel'
 
 function App() {
@@ -33,6 +34,16 @@ function App() {
               <Navigate to="/panel" replace />
             ) : (
               <Login onLogin={handleLogin} />
+            )
+          }
+        />
+        <Route
+          path="/otp"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/panel" replace />
+            ) : (
+              <Otp onLogin={handleLogin} />
             )
           }
         />
