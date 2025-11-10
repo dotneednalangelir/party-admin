@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Login from './pages/login/Login'
 import Otp from './pages/otp/Otp'
@@ -25,18 +25,10 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? (
-              <Navigate to="/panel" replace />
-            ) : (
-              <Login onLogin={handleLogin} />
-            )
-          }
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/otp" element={<Otp onLogin={handleLogin} />} />
         <Route
           path="/otp"
           element={
@@ -50,16 +42,12 @@ function App() {
         <Route
           path="/panel"
           element={
-            isAuthenticated ? (
-              <Panel onLogout={handleLogout} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            isAuthenticated ? <Panel onLogout={handleLogout} /> : <Navigate to="/login" replace />
           }
         />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
