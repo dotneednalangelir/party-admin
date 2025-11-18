@@ -1,132 +1,60 @@
-import { useState, FormEvent } from 'react'
-import styles from './Login.module.css'
-import { icons } from '../../constants/icon'
+import { useState } from 'react'
+import { authService } from '../../services/AuthService'
+import PhoneLogin from './PhoneLogin'
+import OtpVerification from './OtpVerification'
 
 interface LoginProps {
   onLogin: () => void
 }
 
+type LoginStep = 'phone' | 'otp'
+
 function Login({ onLogin }: LoginProps) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-  const [loginError, setLoginError] = useState('')
+  const [step, setStep] = useState<LoginStep>('phone')
+  const [phoneNumber, setPhoneNumber] = useState('')
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setEmailError('')
-    setPasswordError('')
-    setLoginError('')
+  const handleSendOtp = async (phone: string) => {
+    const response = await authService.loginByPhone(phone)
 
-    let hasError = false
-
-    // Check for empty fields and validate format
-    if (!email) {
-      setEmailError('Lütfen e-posta adresinizi girin')
-      hasError = true
+    if (response.data.isMessageSent) {
+      setPhoneNumber(phone)
+      setStep('otp')
     } else {
-      // Email format validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!emailRegex.test(email)) {
-        setEmailError('Geçerli bir e-posta adresi girin')
-        hasError = true
-      }
-    }
-
-    if (!password) {
-      setPasswordError('Lütfen şifrenizi girin')
-      hasError = true
-    }
-
-    if (hasError) return
-
-    // Simple validation - replace with real authentication
-    if (email === 'admin@party.com' && password === 'admin') {
-      onLogin()
-    } else {
-      setLoginError('E-posta veya şifre hatalı')
+      throw new Error('Kod gönderilemedi. Lütfen tekrar deneyin.')
     }
   }
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.loginBox}>
-        <div className={styles.header}>
-          <div
-            className={styles.logo}
-            dangerouslySetInnerHTML={{ __html: icons.party }}
-          />
-        </div>
+  const handleVerifyOtp = async (code: string) => {
+    const response = await authService.validateLoginCode(phoneNumber, code)
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="email">E-posta</label>
-            <input
-              type="text"
-              id="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value)
-                setEmailError('')
-                setLoginError('')
-              }}
-              placeholder="E-posta adresinizi girin"
-              className={emailError ? styles.inputError : ''}
-            />
-            {emailError && (
-              <div className={styles.error}>
-                <div
-                  className={styles.errorIcon}
-                  dangerouslySetInnerHTML={{ __html: icons.infoCircle }}
-                />
-                <span>{emailError}</span>
-              </div>
-            )}
-          </div>
+    if (response.data.accessToken) {
+      onLogin()
+    } else {
+      throw new Error('Doğrulama kodu hatalı.')
+    }
+  }
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="password">Şifre</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value)
-                setPasswordError('')
-                setLoginError('')
-              }}
-              placeholder="Şifrenizi girin"
-              className={passwordError ? styles.inputError : ''}
-            />
-            {passwordError && (
-              <div className={styles.error}>
-                <div
-                  className={styles.errorIcon}
-                  dangerouslySetInnerHTML={{ __html: icons.infoCircle }}
-                />
-                <span>{passwordError}</span>
-              </div>
-            )}
-          </div>
+  const handleResendOtp = async () => {
+    await authService.loginByPhone(phoneNumber)
+  }
 
-          {loginError && (
-            <div className={styles.error}>
-              <div
-                className={styles.errorIcon}
-                dangerouslySetInnerHTML={{ __html: icons.infoCircle }}
-              />
-              <span>{loginError}</span>
-            </div>
-          )}
+  const handleBack = () => {
+    setStep('phone')
+    setPhoneNumber('')
+  }
 
-          <button type="submit" className={styles.loginButton}>
-            Giriş Yap
-          </button>
-        </form>
-      </div>
-    </div>
-  )
+  if (step === 'otp') {
+    return (
+      <OtpVerification
+        phoneNumber={phoneNumber}
+        onVerify={handleVerifyOtp}
+        onResendOtp={handleResendOtp}
+        onBack={handleBack}
+      />
+    )
+  }
+
+  return <PhoneLogin onSendOtp={handleSendOtp} />
 }
 
 export default Login
