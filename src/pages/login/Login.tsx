@@ -19,6 +19,7 @@ function Login() {
       setPhoneError('Lütfen geçerli bir telefon numarası girin')
       return
     }
+  }
 
     // Navigate to OTP screen with phone number
     navigate('/otp', { state: { phoneNumber } })
