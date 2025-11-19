@@ -535,4 +535,4 @@ function Listings({ onLogout, userEmail = 'nalangelir@dotneed.io' }: ListingsPro
   )
 }
 
-export default Listings
+export default Panel

@@ -1,0 +1,181 @@
+.container {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.header h2 {
+  font-size: var(--font-size-h2);
+  color: var(--black);
+  font-weight: 700;
+}
+
+.refreshButton {
+  padding: var(--spacing-xs) var(--spacing-l);
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--spacing-3xs);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.refreshButton:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.loadingContainer,
+.errorContainer,
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-5xl);
+  text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--primary-soft);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-m);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer p,
+.emptyState p {
+  color: var(--gray);
+  font-size: var(--font-size-m);
+}
+
+.errorContainer {
+  color: var(--danger);
+}
+
+.errorText {
+  font-size: var(--font-size-m);
+  margin-bottom: var(--spacing-m);
+}
+
+.retryButton {
+  padding: var(--spacing-xs) var(--spacing-l);
+  background: var(--danger);
+  color: var(--white);
+  border: none;
+  border-radius: var(--spacing-3xs);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retryButton:hover {
+  opacity: 0.9;
+}
+
+.tableContainer {
+  background: var(--white);
+  border-radius: var(--spacing-s);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xl);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: var(--primary-soft);
+}
+
+.table th {
+  padding: var(--spacing-m);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--black);
+  border-bottom: 2px solid var(--primary-soft);
+}
+
+.table td {
+  padding: var(--spacing-m);
+  font-size: var(--font-size-xs);
+  color: var(--gray);
+  border-bottom: 1px solid var(--primary-soft);
+}
+
+.tableRow {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: var(--primary-soft);
+}
+
+.titleCell {
+  font-weight: 600;
+  color: var(--black);
+}
+
+.addressCell {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stats {
+  display: flex;
+  gap: var(--spacing-l);
+}
+
+.statCard {
+  background: var(--white);
+  border-radius: var(--spacing-s);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: var(--spacing-l);
+  flex: 1;
+  text-align: center;
+}
+
+.statValue {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.statLabel {
+  font-size: var(--font-size-xs);
+  color: var(--gray);
+}
+
+@media (max-width: 768px) {
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 800px;
+  }
+}
