@@ -8,24 +8,50 @@
   background: linear-gradient(135deg, var(--primary-soft) 0%, var(--white) 100%);
 }
 
-.loginBox {
+.otpBox {
   background: var(--white);
   border-radius: var(--spacing-s);
   box-shadow: 0 4px 24px rgba(55, 76, 255, 0.08);
   padding: var(--spacing-5xl) var(--spacing-xl);
   width: 100%;
   max-width: 440px;
+  position: relative;
+}
+
+.backButton {
+  position: absolute;
+  top: var(--spacing-l);
+  left: var(--spacing-l);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: var(--spacing-3xs);
+}
+
+.backButton:hover {
+  background: var(--primary-soft);
+}
+
+.backButton svg {
+  width: 24px;
+  height: 24px;
 }
 
 .header {
   text-align: center;
+  margin-bottom: var(--spacing-xl);
 }
 
 .logo {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-l);
 }
 
 .logo svg {
@@ -33,9 +59,17 @@
   height: 38px;
 }
 
-.header p {
+.title {
+  font-size: var(--font-size-h2);
+  color: var(--black);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.description {
   color: var(--gray);
   font-size: var(--font-size-xs);
+  line-height: 1.5;
 }
 
 .form {
@@ -44,35 +78,28 @@
   gap: var(--spacing-l);
 }
 
-.inputGroup {
+.otpInputs {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3xs);
+  gap: var(--spacing-s);
+  justify-content: center;
 }
 
-.inputGroup label {
-  color: var(--black);
-  font-size: var(--font-size-xs);
-  font-weight: 500;
-}
-
-.inputGroup input {
-  padding: var(--spacing-xs) var(--spacing-m);
+.otpInput {
+  width: 48px;
+  height: 56px;
+  text-align: center;
+  font-size: var(--font-size-h2);
+  font-weight: 600;
   border: 2px solid var(--primary-soft);
   border-radius: var(--spacing-3xs);
-  font-size: var(--font-size-xs);
   color: var(--black);
   transition: all 0.2s ease;
   outline: none;
 }
 
-.inputGroup input:focus {
+.otpInput:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(55, 76, 255, 0.1);
-}
-
-.inputGroup input::placeholder {
-  color: var(--gray);
 }
 
 .inputError {
@@ -83,53 +110,10 @@
   box-shadow: 0 0 0 3px rgba(255, 10, 14, 0.1) !important;
 }
 
-.inputGroup :global(.react-international-phone-input-container) {
-  width: 100%;
-}
-
-.inputGroup :global(.react-international-phone-input-container) input {
-  width: 100%;
-  padding: var(--spacing-xs) var(--spacing-m);
-  border: 2px solid var(--primary-soft);
-  border-radius: var(--spacing-3xs);
-  font-size: var(--font-size-xs);
-  color: var(--black);
-  transition: all 0.2s ease;
-  outline: none;
-}
-
-.inputGroup :global(.react-international-phone-input-container) input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(55, 76, 255, 0.1);
-}
-
-.inputGroup :global(.react-international-phone-input-container) input::placeholder {
-  color: var(--gray);
-}
-
-.inputGroup :global(.react-international-phone-country-selector-button) {
-  border: 2px solid var(--primary-soft);
-  border-radius: var(--spacing-3xs);
-  padding: var(--spacing-xs) var(--spacing-s);
-  transition: all 0.2s ease;
-}
-
-.inputGroup :global(.react-international-phone-country-selector-button):hover {
-  border-color: var(--primary);
-  background: var(--primary-soft);
-}
-
-.phoneInputError input {
-  border-color: var(--danger) !important;
-}
-
-.phoneInputError input:focus {
-  box-shadow: 0 0 0 3px rgba(255, 10, 14, 0.1) !important;
-}
-
 .error {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-xs);
   color: var(--danger);
   font-size: var(--font-size-xxs);
@@ -150,7 +134,7 @@
   fill: var(--danger);
 }
 
-.loginButton {
+.verifyButton {
   padding: var(--spacing-xs) 0;
   background: var(--primary);
   color: var(--white);
@@ -158,33 +142,63 @@
   border-radius: var(--spacing-3xs);
   font-size: var(--font-size-m);
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: var(--spacing-xs);
 }
 
-.loginButton:hover {
+.verifyButton:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(55, 76, 255, 0.3);
 }
 
-.loginButton:active {
+.verifyButton:active {
   transform: translateY(0);
 }
 
-.footer {
-  margin-top: var(--spacing-xl);
-  padding-top: var(--spacing-xl);
-  border-top: 1px solid var(--primary-soft);
+.resendSection {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.resendSection p {
+  color: var(--gray);
+  font-size: var(--font-size-xs);
+}
+
+.resendButton {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+}
+
+.resendButton:hover {
+  color: var(--primary-dark);
 }
 
 @media (max-width: 480px) {
-  .loginBox {
+  .otpBox {
     padding: var(--spacing-3xl) var(--spacing-m);
   }
 
-  .header h1 {
-    font-size: var(--font-size-h2);
+  .otpInput {
+    width: 40px;
+    height: 48px;
+    font-size: var(--font-size-h3);
+  }
+
+  .otpInputs {
+    gap: var(--spacing-xs);
+  }
+
+  .title {
+    font-size: var(--font-size-h3);
   }
 }

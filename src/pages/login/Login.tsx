@@ -1,60 +1,70 @@
-import { useState } from 'react'
-import { authService } from '../../services/AuthService'
-import PhoneLogin from './PhoneLogin'
-import OtpVerification from './OtpVerification'
+import { useState, FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { PhoneInput } from 'react-international-phone'
+import 'react-international-phone/style.css'
+import styles from './Login.module.css'
+import { icons } from '../../constants/icon'
 
-interface LoginProps {
-  onLogin: () => void
-}
-
-type LoginStep = 'phone' | 'otp'
-
-function Login({ onLogin }: LoginProps) {
-  const [step, setStep] = useState<LoginStep>('phone')
+function Login() {
+  const navigate = useNavigate()
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [phoneError, setPhoneError] = useState('')
 
-  const handleSendOtp = async (phone: string) => {
-    const response = await authService.loginByPhone(phone)
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setPhoneError('')
 
-    if (response.data.isMessageSent) {
-      setPhoneNumber(phone)
-      setStep('otp')
-    } else {
-      throw new Error('Kod gönderilemedi. Lütfen tekrar deneyin.')
+    // Check for empty field
+    if (!phoneNumber || phoneNumber.length < 10) {
+      setPhoneError('Lütfen geçerli bir telefon numarası girin')
+      return
     }
   }
 
-  const handleVerifyOtp = async (code: string) => {
-    const response = await authService.validateLoginCode(phoneNumber, code)
-
-    if (response.data.accessToken) {
-      onLogin()
-    } else {
-      throw new Error('Doğrulama kodu hatalı.')
-    }
+    // Navigate to OTP screen with phone number
+    navigate('/otp', { state: { phoneNumber } })
   }
 
-  const handleResendOtp = async () => {
-    await authService.loginByPhone(phoneNumber)
-  }
+  return (
+    <div className={styles.container}>
+      <div className={styles.loginBox}>
+        <div className={styles.header}>
+          <div
+            className={styles.logo}
+            dangerouslySetInnerHTML={{ __html: icons.party }}
+          />
+        </div>
 
-  const handleBack = () => {
-    setStep('phone')
-    setPhoneNumber('')
-  }
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="phone">Telefon Numarası</label>
+            <PhoneInput
+              defaultCountry="tr"
+              value={phoneNumber}
+              onChange={(phone) => {
+                setPhoneNumber(phone)
+                setPhoneError('')
+              }}
+              className={phoneError ? styles.phoneInputError : ''}
+            />
+            {phoneError && (
+              <div className={styles.error}>
+                <div
+                  className={styles.errorIcon}
+                  dangerouslySetInnerHTML={{ __html: icons.infoCircle }}
+                />
+                <span>{phoneError}</span>
+              </div>
+            )}
+          </div>
 
-  if (step === 'otp') {
-    return (
-      <OtpVerification
-        phoneNumber={phoneNumber}
-        onVerify={handleVerifyOtp}
-        onResendOtp={handleResendOtp}
-        onBack={handleBack}
-      />
-    )
-  }
-
-  return <PhoneLogin onSendOtp={handleSendOtp} />
+          <button type="submit" className={styles.loginButton}>
+            Devam Et
+          </button>
+        </form>
+      </div>
+    </div>
+  )
 }
 
 export default Login
