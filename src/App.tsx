@@ -3,33 +3,25 @@ import { useState, useEffect } from 'react'
 import Login from './pages/login/Login'
 import Otp from './pages/otp/Otp'
 import Panel from './pages/panel/Panel'
-import { authService } from './services/AuthService'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const checkAuth = () => {
-      const authenticated = authService.isAuthenticated()
-      setIsAuthenticated(authenticated)
-      setLoading(false)
+    const authStatus = localStorage.getItem('isAuthenticated')
+    if (authStatus === 'true') {
+      setIsAuthenticated(true)
     }
-
-    checkAuth()
   }, [])
 
   const handleLogin = () => {
     setIsAuthenticated(true)
+    localStorage.setItem('isAuthenticated', 'true')
   }
 
   const handleLogout = () => {
-    authService.logout()
     setIsAuthenticated(false)
-  }
-
-  if (loading) {
-    return null
+    localStorage.removeItem('isAuthenticated')
   }
 
   return (
@@ -48,7 +40,7 @@ function App() {
           }
         />
         <Route
-          path="/panel/*"
+          path="/panel"
           element={
             isAuthenticated ? <Panel onLogout={handleLogout} /> : <Navigate to="/login" replace />
           }
